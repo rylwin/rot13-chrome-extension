@@ -6,18 +6,14 @@ function appendMessage(message) {
   document.body.appendChild(p);
 }
 
-var port = chrome.runtime.connect({name: "knockknock"});
+var port = chrome.runtime.connect();
 port.onMessage.addListener(function(msg) {
   var string = JSON.stringify(msg);
   console.log("Content script received from background: " + string);
   appendMessage(string);
 });
 
-window.rot13 = function(message) {
-  port.postMessage(message);
-};
-
-rot13("hello!");
+port.postMessage("hello!");
 
 console.log('Send messages for rot13 encrypting with ' +
     '`window.postMessage({ type: "FROM_PAGE", text: "Hello from the webpage!" }, "*");`');
@@ -28,6 +24,6 @@ window.addEventListener("message", function(event) {
 
   if (event.data.type && (event.data.type == "FROM_PAGE")) {
     console.log("Content script received from webpage: " + event.data.text);
-    rot13(event.data.text);
+    port.postMessage(event.data.text);
   }
 }, false);
