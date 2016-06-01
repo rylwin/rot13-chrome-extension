@@ -1,0 +1,9 @@
+{
+  "name": "com.valencepm.rot13",
+  "description": "Rot13!",
+  "path": "/home/ryan/.bin/native-messaging-rot13",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://gncmjflhkmglpglhjhfheajhmfolkmck/"
+  ]
+}
